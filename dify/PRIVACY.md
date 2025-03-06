@@ -1,0 +1,1 @@
+Please refer to the [Privacy Policy](https://www.agentql.com/legal/privacy-policy) of AgentQL.

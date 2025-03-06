@@ -1,0 +1,7 @@
+URL_FIELD_DESCRIPTION = "Accepts the URL of the public webpage to extract data from."
+QUERY_FIELD_DESCRIPTION = "Accepts AgentQL query used to extract the data. The query must be enclosed with curly braces `{}`. Either this field or `prompt` field must be provided."
+PROMPT_FIELD_DATA_DESCRIPTION = "Accepts Natural Language description of the data to extract from the page. If AgentQL query is not specified, always use the `prompt` field. Either this field or `query` field must be provided."
+PROMPT_FIELD_ELEMENT_DESCRIPTION = "Accepts Natural Language description of the web element to find on the page."
+EXTRACT_WEB_DATA_BROWSER_TOOL_DESCRIPTION = "Extracts structured data as JSON from a web page given a URL using either an AgentQL query or a Natural Language description of the data."
+EXTRACT_WEB_DATA_TOOL_DESCRIPTION = "Extracts structured data as a JSON from the active web page in a running browser instance using either an AgentQL query or a Natural Language description of the data."
+GET_WEB_ELEMENT_BROWSER_TOOL_DESCRIPTION = "Finds a web element on the active web page in a running browser instance using element’s Natural Language description and returns its CSS selector for further interaction, like clicking, filling a form field, etc."
