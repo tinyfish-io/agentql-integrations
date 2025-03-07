@@ -1,0 +1,55 @@
+# This workflow will upload a Python Package using Twine when a new commit to release branch is pushed
+---
+name: Integration Continuous Deployment
+
+on: # yamllint disable-line rule:truthy
+  push:
+    branches: ["release"]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./langchain
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          pip install .
+
+      - name: Check if version was bumped
+        run: |
+          published=$(curl -s https://pypi.org/pypi/langchain-agentql/json | jq -r .info.version)
+          current=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['tool']['poetry']['version'])")
+          if [[ -z "$published" || "$published" != "$current" ]]
+          then
+            echo "PUBLISH=yes" >> $GITHUB_ENV
+          else
+            echo "PUBLISH=no" >> $GITHUB_ENV
+          fi
+
+      - name: Build package
+        if: ${{ env.PUBLISH == 'yes' }}
+        run: |
+          python -m build
+
+      - name: Publish python package
+        if: ${{ env.PUBLISH == 'yes' }}
+        uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages_dir: ./langchain/dist/
