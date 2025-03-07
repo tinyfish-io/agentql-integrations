@@ -35,7 +35,7 @@ jobs:
 
       - name: Check if version was bumped
         run: |
-          published=$(curl -s https://pypi.org/pypi/agentql/json | jq -r .info.version)
+          published=$(curl -s https://pypi.org/pypi/langchain-agentql/json | jq -r .info.version)
           current=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['tool']['poetry']['version'])")
           if [[ "$published" != "$current" ]]
           then
