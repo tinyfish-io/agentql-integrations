@@ -10,9 +10,6 @@ permissions:
   id-token: write # This is required for requesting the JWT
   contents: read
 
-env:
-  ROLE_ARN: "arn:aws:iam::908831230721:role/ih-tf-webql-client-github"
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
