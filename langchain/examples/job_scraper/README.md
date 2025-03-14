@@ -6,7 +6,7 @@ This agent extracts all of the job postings and their information from https://w
 
 - Install LangChain and LangGraph to build the agent:
 
-```
+```bash
 pip install langchain langgraph
 ```
 
