@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "langchain-agentql"
-version = "1.0.0"
+version = "1.0.1"
 description = "An integration package connecting AgentQL and LangChain"
 authors = []
 readme = "README.md"
