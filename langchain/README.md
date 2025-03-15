@@ -34,7 +34,7 @@ loader = AgentQLLoader(
 docs = loader.load()
 ```
 
-You can learn more about how to use AgentQLLoader in this [Jupyter notebook](./docs/document_loaders.ipynb).
+You can learn more about how to use AgentQLLoader in this [Jupyter notebook](https://github.com/tinyfish-io/agentql-integrations/blob/main/langchain/docs/document_loaders.ipynb).
 
 ## Tools/Toolkits
 
@@ -48,7 +48,7 @@ AgentQL provides the following three tools:
 
 We also provide an `AgentQLBrowserToolkit` toolkit with both `ExtractWebDataBrowserTool` and `GetWebElementBrowserTool` browser tools bundled.
 
-You can learn more about how to use AgentQL tools in this [Jupyter notebook](./docs/tools.ipynb).
+You can learn more about how to use AgentQL tools in this [Jupyter notebook](https://github.com/tinyfish-io/agentql-integrations/blob/main/langchain/docs/tools.ipynb).
 
 ### Extract data using REST API
 
