@@ -1,15 +1,9 @@
-import getpass
-import os
-
 from langchain.chat_models import init_chat_model
 from langchain_agentql.tools import ExtractWebDataTool
 from langchain_community.tools.file_management.write import WriteFileTool
 from langgraph.prebuilt import create_react_agent
 
 # Instantiate LLM
-if not os.environ.get("OPENAI_API_KEY"):
-    os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter API key for OpenAI: ")
-
 model = init_chat_model("gpt-4", model_provider="openai")
 
 # Get tools
