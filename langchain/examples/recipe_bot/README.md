@@ -4,34 +4,25 @@ This agent searches for a quick and simple oatmeal cookie recipe, navigates to a
 
 ## Run the script
 
-- Install LangChain and LangGraph to build the agent:
+- Install LangChain and LangGraph, OpenAI's language model, AgentQL's tools, and DuckDuckGoSearch's tools to build the agent:
 
-```
+```bash
 pip install langchain langgraph
-```
-
-- Install OpenAI as the language model used for this script:
-
-```
 pip install -qU "langchain[openai]"
-```
-
-- Install AgentQL's tools:
-
-```
 pip install -U langchain-agentql
+pip install -U duckduckgo-search
 ```
 
-- Configure the `AGENTQL_API_KEY` environment variable. You can get your API key [here](https://dev.agentql.com/api-keys)
+- Configure the `AGENTQL_API_KEY` environment variable. You can get your AgentQL API key [here](https://dev.agentql.com/api-keys)
 
-```
+```bash
 export AGENTQL_API_KEY=<YOUR_AGENTQL_API_KEY>
 ```
 
-- Install DuckDuckGoSearch's tools:
+- Configure the `OPENAI_API_KEY` environment variable. You can get your OpenAI API key <a href="https://platform.openai.com/api-keys" target="_blank">here</a>
 
-```
-pip install -U duckduckgo-search
+```bash
+export OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
 ```
 
 - Run the following command from the project's folder:
