@@ -17,7 +17,7 @@ const handleBadResponses = (response, z, bundle) => {
   if (response.status === 401) {
     throw new z.errors.Error(
       // This message is surfaced to the user
-      `The API Key you supplied is incorrect, please check your API key at ${DEV_PORTAL_URL} and try again.`,
+      `The API Key you supplied is invalid. Please check your API key and whether it has hit its usage limit at ${DEV_PORTAL_URL}.`,
       "AuthenticationError",
       response.status
     );
