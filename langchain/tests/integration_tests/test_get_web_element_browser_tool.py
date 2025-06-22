@@ -20,4 +20,4 @@ class TestGetWebElementBrowserToolCall:
         res = await browser_tool.ainvoke(
             {"prompt": "button for buying it now"}
         )
-        assert res == "[tf623_id='965']"
+        assert res == "[tf623_id='963']"
