@@ -18,8 +18,4 @@ jobs:
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.9.2"
     with:
       scan-args: --config osv-scanner.toml 
-        --output=results.sarif 
-        --new=results.json
-        --gh-annotations=false
-        --fail-on-vuln=true
       upload-sarif: false
