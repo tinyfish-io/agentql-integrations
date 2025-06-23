@@ -26,6 +26,8 @@ httpx = "^0.28.1"
 langchain-community = "^0.3.17"
 langchain-openai = "^0.3.4"
 langchain-tests = "^0.3.12"
+h11 = "^0.16.0"
+urllib3 = "^2.5.0"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "T201"]

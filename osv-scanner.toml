@@ -1,0 +1,4 @@
+[[IgnoredVulns]]
+id = "GHSA-v6h2-p8h4-qcjw"
+ignoreUntil = 2025-09-19 # Optional exception expiry date
+reason = "Ignoring this to unblock fix of a critical vulnerability h11"
