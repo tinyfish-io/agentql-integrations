@@ -1,4 +1,4 @@
 [[IgnoredVulns]]
-id = "GHSA-v6h2-p8h4-qcjw"
-ignoreUntil = 2025-09-19 # Optional exception expiry date
-reason = "Ignoring this to unblock fix of a critical vulnerability h11"
+id = "GHSA-2g6r-c272-w58r"
+ignoreUntil = "2026-06-15T00:00:00Z"
+reason = "langchain-core SSRF via image_url token counting (LOW). Fix requires upgrading langchain-core 0.3.x -> 1.2.11, a breaking major version change incompatible with our ^0.3.15 constraint. No semver-compatible fix available."
