@@ -2,3 +2,8 @@
 id = "GHSA-2g6r-c272-w58r"
 ignoreUntil = "2026-06-15T00:00:00Z"
 reason = "langchain-core SSRF via image_url token counting (LOW). Fix requires upgrading langchain-core 0.3.x -> 1.2.11, a breaking major version change incompatible with our ^0.3.15 constraint. No semver-compatible fix available."
+
+[[IgnoredVulns]]
+id = "GHSA-5239-wwwm-4pmq"
+ignoreUntil = "2026-06-23T00:00:00Z"
+reason = "LOW severity (CVSS 3.3). pygments 2.19.2 is the latest release and is marked last_affected — no fix version published yet. ReDoS via GUID regex only exploitable with attacker-controlled syntax highlighting inputs."
