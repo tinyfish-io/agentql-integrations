@@ -5,5 +5,10 @@ reason = "langchain-core SSRF via image_url token counting (LOW). Fix requires u
 
 [[IgnoredVulns]]
 id = "GHSA-qh6h-p6c9-ff54"
-ignoreUntil = "2026-04-27T12:04:00Z"
+ignoreUntil = "2026-07-16T00:00:00Z"
 reason = "langchain-core path traversal in load_prompt/load_prompt_from_config (HIGH, CVE-2026-34070). Fix requires upgrading langchain-core 0.3.x -> 1.2.22, a breaking major version change. langchain-community 0.3.x hard-constrains langchain-core<1.0.0, making a semver-compatible upgrade impossible without also migrating langchain-community to a stable 1.x release (currently only alpha). No fix available in the 0.3.x line."
+
+[[IgnoredVulns]]
+id = "GHSA-6w46-j5rx-g56g"
+ignoreUntil = "2026-07-16T00:00:00Z"
+reason = "pytest tmpdir privilege escalation (CVE-2025-71176, MEDIUM). Fix requires pytest>=9.0.3, but langchain-tests<=0.3.x pins pytest<9. Upgrading langchain-tests to 1.x would require a full langchain ecosystem migration (langchain-core 0.3->1.x, langchain-community 0.3->1.x). Affects test execution only — no production exposure. ENG-14433."
