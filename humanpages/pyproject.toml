@@ -1,0 +1,72 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "agentql-humanpages"
+version = "0.1.0"
+description = "An integration package connecting AgentQL and Human Pages for human-in-the-loop fallback"
+authors = []
+readme = "README.md"
+repository = "https://github.com/tinyfish-io/agentql-integrations"
+license = "MIT"
+
+[tool.mypy]
+disallow_untyped_defs = "True"
+
+[tool.poetry.urls]
+"Source Code" = "https://github.com/tinyfish-io/agentql-integrations/tree/main/humanpages"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+agentql = "^1.8.1"
+httpx = "^0.28.1"
+pydantic = "^2.0"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "T201"]
+
+[tool.coverage.run]
+omit = ["tests/*"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --strict-config --durations=5"
+markers = [
+    "compile: mark placeholder test used to compile integration tests without running them",
+]
+asyncio_mode = "auto"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.codespell]
+optional = true
+
+[tool.poetry.group.test_integration]
+optional = true
+
+[tool.poetry.group.lint]
+optional = true
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+pytest-asyncio = "^0.23.2"
+pytest-socket = "^0.7.0"
+pytest-watcher = "^0.3.4"
+respx = "^0.21.1"
+
+[tool.poetry.group.codespell.dependencies]
+codespell = "^2.2.6"
+
+[tool.poetry.group.test_integration.dependencies]
+
+[tool.poetry.group.lint.dependencies]
+ruff = "^0.5"
+
+[tool.poetry.group.typing.dependencies]
+mypy = "^1.10"
