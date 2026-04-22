@@ -13,7 +13,7 @@ test tests:
 	poetry run pytest --disable-socket --allow-unix-socket $(TEST_FILE)
 
 test_watch:
-	poetry run ptw --snapshot-update --now . -- -vv $(TEST_FILE)
+	poetry run ptw --now . -- --snapshot-update -vv $(TEST_FILE)
 
 # integration tests are run without the --disable-socket flag to allow network calls
 integration_test integration_tests:
@@ -27,7 +27,8 @@ integration_test integration_tests:
 PYTHON_FILES=.
 MYPY_CACHE=.mypy_cache
 lint format: PYTHON_FILES=.
-lint_diff format_diff: PYTHON_FILES=$(shell git diff --relative --name-only --diff-filter=d main | grep -E '\.py$$|\.ipynb$$')
+BASE_REF ?= main
+lint_diff format_diff: PYTHON_FILES=$(shell git diff --relative --name-only --diff-filter=d $(BASE_REF)...HEAD | grep -E '\.py$$|\.ipynb$$')
 lint_package: PYTHON_FILES=agentql_humanpages
 lint_tests: PYTHON_FILES=tests
 lint_tests: MYPY_CACHE=.mypy_cache_test

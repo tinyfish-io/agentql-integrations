@@ -306,7 +306,7 @@ class HumanFallbackAgent:
             if data:
                 return {"source": "agentql", "data": data}
             logger.info("AgentQL returned empty data for %s, falling back to human.", url)
-        except (httpx.HTTPError, httpx.TimeoutException, ValueError) as e:
+        except (httpx.HTTPError, ValueError) as e:
             logger.info(
                 AGENTQL_EXTRACTION_FAILED.format(url=url, detail=str(e))
             )
@@ -345,7 +345,7 @@ class HumanFallbackAgent:
             if data:
                 return {"source": "agentql", "data": data}
             logger.info("AgentQL returned empty data for %s, falling back to human.", url)
-        except (httpx.HTTPError, httpx.TimeoutException, ValueError) as e:
+        except (httpx.HTTPError, ValueError) as e:
             logger.info(
                 AGENTQL_EXTRACTION_FAILED.format(url=url, detail=str(e))
             )
