@@ -2,6 +2,7 @@
 
 import os
 from typing import Any, Optional
+from urllib.parse import quote
 
 import httpx
 
@@ -66,7 +67,10 @@ class HumanPagesClient:
         msg = e.response.text
         try:
             error_json = e.response.json()
-            msg = error_json.get("error", error_json.get("message", str(error_json)))
+            if isinstance(error_json, dict):
+                msg = error_json.get("error", error_json.get("message", str(error_json)))
+            else:
+                msg = str(error_json)
         except (ValueError, TypeError):
             msg = f"HTTP {e}"
         raise ValueError(msg) from e
@@ -146,7 +150,7 @@ class HumanPagesClient:
         Returns:
             The job object with its current status.
         """
-        url = f"{self._base_url}{JOB_STATUS_ENDPOINT.format(job_id=job_id)}"
+        url = f"{self._base_url}{JOB_STATUS_ENDPOINT.format(job_id=quote(job_id, safe=''))}"
         try:
             response = httpx.get(
                 url,
@@ -167,7 +171,7 @@ class HumanPagesClient:
         Returns:
             A list of message objects for the job.
         """
-        url = f"{self._base_url}{JOB_MESSAGES_ENDPOINT.format(job_id=job_id)}"
+        url = f"{self._base_url}{JOB_MESSAGES_ENDPOINT.format(job_id=quote(job_id, safe=''))}"
         try:
             response = httpx.get(
                 url,
@@ -230,7 +234,7 @@ class HumanPagesClient:
 
     async def aget_job_status(self, job_id: str) -> dict[str, Any]:
         """Async version of get_job_status."""
-        url = f"{self._base_url}{JOB_STATUS_ENDPOINT.format(job_id=job_id)}"
+        url = f"{self._base_url}{JOB_STATUS_ENDPOINT.format(job_id=quote(job_id, safe=''))}"
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.get(
@@ -245,7 +249,7 @@ class HumanPagesClient:
 
     async def aget_job_messages(self, job_id: str) -> list[dict[str, Any]]:
         """Async version of get_job_messages."""
-        url = f"{self._base_url}{JOB_MESSAGES_ENDPOINT.format(job_id=job_id)}"
+        url = f"{self._base_url}{JOB_MESSAGES_ENDPOINT.format(job_id=quote(job_id, safe=''))}"
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.get(

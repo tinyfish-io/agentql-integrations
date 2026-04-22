@@ -12,7 +12,7 @@ repository = "https://github.com/tinyfish-io/agentql-integrations"
 license = "MIT"
 
 [tool.mypy]
-disallow_untyped_defs = "True"
+disallow_untyped_defs = true
 
 [tool.poetry.urls]
 "Source Code" = "https://github.com/tinyfish-io/agentql-integrations/tree/main/humanpages"
@@ -21,7 +21,7 @@ disallow_untyped_defs = "True"
 python = ">=3.10,<4.0"
 agentql = "^1.8.1"
 httpx = "^0.28.1"
-pydantic = "^2.0"
+pydantic = "^2.4.0"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "T201"]

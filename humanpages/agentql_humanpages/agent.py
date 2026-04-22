@@ -1,5 +1,6 @@
 """Human Fallback Agent -- uses AgentQL for web extraction with Human Pages fallback."""
 
+import asyncio
 import logging
 import os
 import time
@@ -216,6 +217,55 @@ class HumanFallbackAgent:
 
         raise TimeoutError(JOB_TIMEOUT_ERROR.format(job_id=job_id))
 
+    async def _adelegate_to_human(
+        self,
+        url: str,
+        description: str,
+        price_usdc: Optional[float] = None,
+        deadline_hours: Optional[int] = None,
+    ) -> dict[str, Any]:
+        """Async version: create a Human Pages job and poll until completion or timeout."""
+        humans = await self._hp_client.asearch_humans(skill="web task", available=True)
+        if not humans:
+            raise RuntimeError(NO_HUMANS_AVAILABLE_ERROR)
+
+        human_id = humans[0]["id"]
+        price = price_usdc if price_usdc is not None else self._price_usdc
+        deadline = deadline_hours if deadline_hours is not None else self._deadline_hours
+
+        try:
+            job = await self._hp_client.acreate_job(
+                human_id=human_id,
+                title=f"Extract data from {url}",
+                description=description,
+                price_usdc=price,
+                deadline_hours=deadline,
+            )
+        except (ValueError, httpx.HTTPError) as e:
+            raise RuntimeError(JOB_CREATION_FAILED_ERROR.format(detail=str(e))) from e
+
+        job_id = job["id"]
+        for _ in range(self._max_poll_attempts):
+            status = await self._hp_client.aget_job_status(job_id)
+            if status.get("status") == "completed":
+                messages = await self._hp_client.aget_job_messages(job_id)
+                return {
+                    "source": "humanpages",
+                    "job_id": job_id,
+                    "status": status,
+                    "messages": messages,
+                }
+            if status.get("status") in ("cancelled", "expired", "failed"):
+                return {
+                    "source": "humanpages",
+                    "job_id": job_id,
+                    "status": status,
+                    "messages": [],
+                }
+            await asyncio.sleep(self._poll_interval)
+
+        raise TimeoutError(JOB_TIMEOUT_ERROR.format(job_id=job_id))
+
     def extract(
         self,
         url: str,
@@ -246,8 +296,8 @@ class HumanFallbackAgent:
                 - ``data``: The extracted data (when source is agentql).
                 - ``job_id``, ``status``, ``messages``: Job details (when source is humanpages).
         """
-        if not query and not prompt:
-            raise ValueError("Either 'query' or 'prompt' must be provided.")
+        if bool(query) == bool(prompt):
+            raise ValueError("Exactly one of 'query' or 'prompt' must be provided.")
 
         # Attempt AgentQL extraction
         try:
@@ -286,8 +336,8 @@ class HumanFallbackAgent:
         deadline_hours: Optional[int] = None,
     ) -> dict[str, Any]:
         """Async version of extract. See extract() for full documentation."""
-        if not query and not prompt:
-            raise ValueError("Either 'query' or 'prompt' must be provided.")
+        if bool(query) == bool(prompt):
+            raise ValueError("Exactly one of 'query' or 'prompt' must be provided.")
 
         try:
             result = await self._agentql_extract_async(url=url, query=query, prompt=prompt)
@@ -307,9 +357,7 @@ class HumanFallbackAgent:
                 f"Return the results as structured JSON."
             )
 
-        # Async delegation uses sync polling (human jobs are inherently slow).
-        # For production use, consider running in an executor.
-        return self._delegate_to_human(
+        return await self._adelegate_to_human(
             url=url,
             description=fallback_description,
             price_usdc=price_usdc,
