@@ -33,6 +33,7 @@ orjson = ">=3.11.6"
 requests = ">=2.33.0"
 pygments = ">=2.20.0"
 aiohttp = ">=3.13.5"
+python-dotenv = ">=1.2.2"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "T201"]
