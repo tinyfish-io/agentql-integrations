@@ -1,4 +1,9 @@
 [[IgnoredVulns]]
+id = "GHSA-fv5p-p927-qmxr"
+ignoreUntil = "2026-07-24T00:00:00Z"
+reason = "langchain-text-splitters SSRF redirect bypass in HTMLHeaderTextSplitter.split_text_from_url (MEDIUM). Fix requires langchain-text-splitters>=1.1.2 which requires langchain-core>=1.2.31 — a breaking major change. langchain-community 0.3.x hard-constrains langchain-core<1.0.0, making a semver-compatible upgrade impossible. HTMLHeaderTextSplitter is not used by langchain-agentql. Related: ENG-14677."
+
+[[IgnoredVulns]]
 id = "GHSA-2g6r-c272-w58r"
 ignoreUntil = "2026-06-15T00:00:00Z"
 reason = "langchain-core SSRF via image_url token counting (LOW). Fix requires upgrading langchain-core 0.3.x -> 1.2.11, a breaking major version change incompatible with our ^0.3.15 constraint. No semver-compatible fix available."
