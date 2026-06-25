@@ -5,8 +5,8 @@ reason = "langchain-text-splitters SSRF redirect bypass in HTMLHeaderTextSplitte
 
 [[IgnoredVulns]]
 id = "GHSA-2g6r-c272-w58r"
-ignoreUntil = 2026-06-15
-reason = "langchain-core SSRF via image_url token counting (LOW). Fix requires upgrading langchain-core 0.3.x -> 1.2.11, a breaking major version change incompatible with our ^0.3.15 constraint. No semver-compatible fix available."
+ignoreUntil = 2026-09-25
+reason = "langchain-core SSRF via image_url token counting (LOW). Fix requires upgrading langchain-core 0.3.x -> 1.2.11, a breaking major version change. langchain-community 0.3.x hard-constrains langchain-core<1.0.0, making a semver-compatible upgrade impossible. No fix available in the 0.3.x line."
 
 [[IgnoredVulns]]
 id = "GHSA-qh6h-p6c9-ff54"
@@ -22,3 +22,39 @@ reason = "pytest tmpdir privilege escalation (CVE-2025-71176, MEDIUM). Fix requi
 id = "GHSA-r7w7-9xr2-qq2r"
 ignoreUntil = 2026-07-27
 reason = "langchain-openai prompt injection via tool result injection (LOW). Fix requires langchain-openai>=0.4.4 which requires langchain-core>=1.3.1 — a breaking major change. langchain-community 0.3.x hard-constrains langchain-core<1.0.0, making a semver-compatible upgrade impossible. ENG-14837."
+
+
+[[IgnoredVulns]]
+id = "GHSA-gr75-jv2w-4656"
+ignoreUntil = 2026-09-25
+reason = "langchain path traversal via file-search middleware and loaders (MEDIUM, CVE-2026-44959). Fix requires langchain>=1.3.9 — a breaking major version change. langchain-community 0.3.x hard-constrains langchain-core<1.0.0 making migration to 1.x impossible without a full ecosystem upgrade. No fix available in the 0.3.x line; langchain is a transitive dep not exposed in langchain-agentql's API surface."
+
+[[IgnoredVulns]]
+id = "GHSA-h67p-54hq-rp68"
+ignoreUntil = 2026-09-25
+reason = "js-yaml quadratic-complexity DoS in merge key handling (MEDIUM). Fix requires js-yaml>=4.2.0 — a breaking major version change. The only consumer in zapier/ is @istanbuljs/load-nyc-config (dev tooling for test coverage) which uses the removed yaml.safeLoad() API from js-yaml 3.x; forcing 4.x breaks the coverage tool. This is a devDependency only — not included in any deployed artifact."
+
+[[IgnoredVulns]]
+id = "GHSA-68rp-wp8r-4726"
+ignoreUntil = 2026-09-25
+reason = "flask session missing Vary: Cookie header (LOW). Affects dify/requirements.txt via dify_plugin==0.0.1b65 which hard-pins flask~=3.0.3 (<3.1.0), making an in-place upgrade impossible without changing dify_plugin itself. Mitigation: this is a Dify plugin integration not deployed as a standalone Flask service."
+
+[[IgnoredVulns]]
+id = "GHSA-gc5v-m9x4-r6x2"
+ignoreUntil = 2026-09-25
+reason = "requests insecure temp file reuse in extract_zipped_paths() (MEDIUM). Affects dify/requirements.txt via dify_plugin==0.0.1b65 which pins requests below 2.33.0. Cannot upgrade without upgrading dify_plugin. extract_zipped_paths() is only called for zip content-type responses — not the typical usage in this plugin."
+
+[[IgnoredVulns]]
+id = "GHSA-29vq-49wr-vm6x"
+ignoreUntil = 2026-09-25
+reason = "werkzeug safe_join() Windows special device names (MEDIUM). Affects dify/requirements.txt via dify_plugin==0.0.1b65 which pins flask~=3.0.3 which in turn pins werkzeug~=3.0.x. Cannot upgrade without upgrading dify_plugin. Not exploitable on Linux/macOS deployments (Windows device names are OS-specific)."
+
+[[IgnoredVulns]]
+id = "GHSA-87hc-h4r5-73f7"
+ignoreUntil = 2026-09-25
+reason = "werkzeug safe_join() Windows special device names with compound extensions (MEDIUM). Affects dify/requirements.txt via dify_plugin==0.0.1b65 which pins flask~=3.0.3. Same root cause as GHSA-29vq-49wr-vm6x. Not exploitable on Linux/macOS deployments."
+
+[[IgnoredVulns]]
+id = "GHSA-hgf8-39gv-g3f2"
+ignoreUntil = 2026-09-25
+reason = "werkzeug safe_join() Windows special device names (MEDIUM). Affects dify/requirements.txt via dify_plugin==0.0.1b65. Same root cause as GHSA-29vq-49wr-vm6x and GHSA-87hc-h4r5-73f7. Not exploitable on Linux/macOS deployments."
