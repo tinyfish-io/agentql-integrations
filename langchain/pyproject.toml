@@ -19,7 +19,7 @@ disallow_untyped_defs = "True"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
-langchain-core = "^0.3.15"
+langchain-core = ">=0.3.85,<1.0.0"
 agentql = "^1.8.1"
 playwright = "^1.50.0"
 httpx = "^0.28.1"
@@ -27,13 +27,16 @@ langchain-community = "^0.3.17"
 langchain-openai = "^0.3.4"
 langchain-tests = "^0.3.12"
 h11 = "^0.16.0"
-urllib3 = "^2.5.0"
-langsmith = ">=0.7.31"
+urllib3 = ">=2.7.0"
+langsmith = ">=0.8.18"
 orjson = ">=3.11.6"
 requests = ">=2.33.0"
 pygments = ">=2.20.0"
-aiohttp = ">=3.13.5"
+aiohttp = ">=3.14.1"
 python-dotenv = ">=1.2.2"
+langchain = ">=0.3.30,<1.0.0"
+idna = ">=3.15"
+pydantic-settings = ">=2.14.2"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "T201"]
@@ -71,6 +74,7 @@ pytest-asyncio = "^0.23.2"
 pytest-socket = "^0.7.0"
 pytest-watcher = "^0.3.4"
 langchain-tests = "^0.3.5"
+vcrpy = ">=8.2.1"
 
 [tool.poetry.group.codespell.dependencies]
 codespell = "^2.2.6"
