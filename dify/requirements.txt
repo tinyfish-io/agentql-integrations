@@ -1,1 +1,4 @@
-dify_plugin==0.0.1b65
+dify_plugin==0.10.2
+# Transitive floors (via dify_plugin -> httpx): GHSA-82r6-8w77-94w6 / GHSA-5p39-cfhj-2xmp (anyio), PYSEC-2026-215 / GHSA-65pc-fj4g-8rjx (idna)
+anyio>=4.15.1
+idna>=3.20
