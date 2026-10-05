@@ -1,0 +1,8 @@
+# OSV Scanner configuration — read by the repo-wide `vulnerability-check` gate.
+# Entries are time-boxed risk acceptances for findings with NO upstream fix.
+# Remove an entry as soon as a fixed release exists.
+
+[[IgnoredVulns]]
+id = "GHSA-vfj7-8cjw-p6xm"  # CVE-2026-93687, braces <=3.0.3, HIGH
+ignoreUntil = 2027-01-04
+reason = "NO UPSTREAM PATCH + NOT EXPLOITABLE: braces 3.0.3 (latest release) is reached only via jest -> @jest/core -> micromatch in zapier/ devDependencies; it runs as the local/CI test runner over glob patterns from jest's own config, never on external input, and is not part of the published Zapier app. EPSS 0.74%, not in CISA KEV. Remove when braces ships a fix."
